@@ -1,0 +1,4 @@
+Django~=1.9
+djangorestframework~=3.3
+django-oauth-toolkit~=0.10
+google-api-python-client~=1.4
