@@ -34,18 +34,19 @@ class HelpRequestQuerySet(models.query.QuerySet):
             'east': longitude + (ONE_MILE_LONGITUDE_DEGREES * radius),
             'west': longitude - (ONE_MILE_LONGITUDE_DEGREES * radius)
         }
+
         return self.filter(
-            latitude__range=(max_val['south'], max_val['north']),
-            longitude__range=(max_val['west'], max_val['south'])
+            location_lat__range=(max_val['south'], max_val['north']),
+            location_lon__range=(max_val['west'], max_val['east'])
         )
 
 
 class HelpRequestManager(models.Manager):
-    def get_query_set(self):
+    def get_queryset(self):
         return HelpRequestQuerySet(self.model, using=self._db)
 
     def location(self, latitude, longitude, radius=DEFAULT_RADIUS_MILES):
-        return self.get_query_set().location(latitude, longitude, radius)
+        return self.get_queryset().location(latitude, longitude, radius)
 
 
 class HelpRequest(models.Model):
@@ -58,7 +59,7 @@ class HelpRequest(models.Model):
     location_lon = models.FloatField(_('meeting location longitude'), blank=True, null=True)
     content = models.TextField(_('content'))
     is_closed = models.BooleanField(_('is closed'), default=False)
-    objects = HelpRequestManager
+    objects = HelpRequestManager()
 
     class Meta:
         verbose_name = _('help request')
@@ -66,6 +67,10 @@ class HelpRequest(models.Model):
 
     def __str__(self):
         return self.title
+
+    @property
+    def author_name(self):
+        return self.author.get_full_name()
 
     def get_distance(self, user_longitude, user_latitude):
         # Convert given coordinated to floating point

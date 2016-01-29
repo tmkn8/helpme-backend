@@ -36,8 +36,16 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.sites',
     'django.contrib.staticfiles',
+    # Third-party
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'rest_framework',
+    'oauth2_provider',
     # Internal
+    'accounts',
     'help_requests',
 ]
 
@@ -121,3 +129,35 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# Customizing authentication
+# https://docs.djangoproject.com/en/1.9/topics/auth/customizing/
+
+AUTH_USER_MODEL = 'accounts.User'
+
+AUTHENTICATION_BACKENDS = (
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+
+# REST Framework
+# http://www.django-rest-framework.org/api-guide/settings/
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'oauth2_provider.ext.rest_framework.OAuth2Authentication',
+    )
+}
+
+
+# The "sites" framework
+# https://docs.djangoproject.com/en/1.9/ref/contrib/sites/
+
+SITE_ID = 1
+
+
+# django-allauth settings
+# http://django-allauth.readthedocs.org/en/latest/configuration.html
+
+ACCOUNT_EMAIL_REQUIRED = True
