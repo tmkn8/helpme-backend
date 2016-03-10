@@ -2,3 +2,7 @@ Django~=1.9
 djangorestframework~=3.3
 django-oauth-toolkit~=0.10
 django-allauth~=0.24
+gunicorn
+dj-static
+dj-database-url
+psycopg2
