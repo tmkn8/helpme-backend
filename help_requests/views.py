@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from oauth2_provider.ext.rest_framework import OAuth2Authentication
 from rest_framework import authentication, filters, permissions, viewsets
 
 from .models import HelpRequest
@@ -10,7 +9,7 @@ class DefaultsMixin(object):
     """Default settings for view authentication, permissions, filtering and pagination."""
 
     authentication_classes = (
-        OAuth2Authentication,
+        authentication.BasicAuthentication,
     )
     permission_classes = (
         permissions.IsAuthenticated,
