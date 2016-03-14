@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from rest_framework import authentication, filters, permissions, viewsets
 
+from core.views import DefaultsMixin
 from .models import HelpRequest
 from .serializers import HelpRequestSerializer
 
