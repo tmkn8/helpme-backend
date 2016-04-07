@@ -9,7 +9,7 @@ class HelpRequestSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = HelpRequest
-        fields = ['title', 'author_name', 'datetime', 'location_name',
+        fields = ['id', 'title', 'author_name', 'datetime', 'location_name',
                   'location_lat', 'location_lon', 'content', 'is_closed', 'links']
         read_only_fields = ('author', 'datetime')
 
