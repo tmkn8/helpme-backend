@@ -1,10 +1,17 @@
 from rest_framework import authentication, permissions, filters
 
+
+class CsrfExemptSessionAuthentication(authentication.SessionAuthentication):
+    def enforce_csrf(self, request):
+        return
+
+
 class DefaultsMixin(object):
     """Default settings for view authentication, permissions, filtering
     and pagination."""
 
     authentication_classes = (
+        CsrfExemptSessionAuthentication,
         authentication.BasicAuthentication,
     )
     permission_classes = (
