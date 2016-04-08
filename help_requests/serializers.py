@@ -20,3 +20,6 @@ class HelpRequestSerializer(serializers.ModelSerializer):
                             request=request),
             'author': None,
         }
+
+    def save(self, *args, **kwargs):
+        super(HelpRequestSerializer, self).save(*args, author=self.context['request'].user, **kwargs)
