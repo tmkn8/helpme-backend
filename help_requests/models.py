@@ -40,6 +40,12 @@ class HelpRequestQuerySet(models.query.QuerySet):
             location_lon__range=(max_val['west'], max_val['east'])
         )
 
+    def not_closed(self):
+        """
+        Returns only requests which hasn't been closed yet
+        """
+        return self.filter(is_closed=False)
+
 
 class HelpRequestManager(models.Manager):
     def get_queryset(self):
@@ -47,6 +53,9 @@ class HelpRequestManager(models.Manager):
 
     def location(self, latitude, longitude, radius=DEFAULT_RADIUS_MILES):
         return self.get_queryset().location(latitude, longitude, radius)
+
+    def not_closed(self):
+        return self.get_queryset().not_closed()
 
 
 class HelpRequest(models.Model):
