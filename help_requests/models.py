@@ -54,6 +54,7 @@ class HelpRequest(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL,
                                verbose_name=_('author'))
     datetime = models.DateTimeField(_('datetime'), default=timezone.now)
+    meeting_datetime = models.DateTimeField(_('meeting datetime'))
     location_name = models.CharField(_('meeting location name'), max_length=50)
     location_lat = models.FloatField(_('meeting location latitude'), blank=True, null=True)
     location_lon = models.FloatField(_('meeting location longitude'), blank=True, null=True)

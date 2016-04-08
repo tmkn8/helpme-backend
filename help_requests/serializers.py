@@ -9,9 +9,9 @@ class HelpRequestSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = HelpRequest
-        fields = ['id', 'title', 'author_name', 'datetime', 'location_name',
+        fields = ['id', 'title', 'author_name', 'datetime', 'location_name', 'meeting_datetime',
                   'location_lat', 'location_lon', 'content', 'is_closed', 'links']
-        read_only_fields = ('author', 'datetime')
+        read_only_fields = ('author')
 
     def get_links(self, obj):
         request = self.context['request']
