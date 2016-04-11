@@ -11,7 +11,7 @@ class HelpRequestReplySerializer(serializers.ModelSerializer):
     class Meta:
         model = HelpRequestReply
         fields = '__all__'
-        read_only_fields = ('author', 'id', 'help_request')
+        read_only_fields = ('author', 'id')
 
     def get_author_name(self, obj):
         return obj.author.username
