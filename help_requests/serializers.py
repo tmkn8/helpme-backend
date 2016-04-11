@@ -24,6 +24,9 @@ class HelpRequestReplySerializer(serializers.ModelSerializer):
             'author': None,
         }
 
+    def save(self, *args, **kwargs):
+        super(HelpRequestReplySerializer, self).save(*args, author=self.context['request'].user, **kwargs)
+
 
 class HelpRequestSerializer(serializers.ModelSerializer):
     links = serializers.SerializerMethodField()
