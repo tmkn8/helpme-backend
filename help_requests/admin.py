@@ -1,5 +1,13 @@
 from django.contrib import admin
 
-from .models import HelpRequest
+from .models import HelpRequest, HelpRequestReply
 
-admin.site.register(HelpRequest)
+
+class HelpRequestReplyInline(admin.TabularInline):
+    model = HelpRequestReply
+    extra = 0
+
+
+@admin.register(HelpRequest)
+class HelpRequestAdmin(admin.ModelAdmin):
+    inlines = [HelpRequestReplyInline]

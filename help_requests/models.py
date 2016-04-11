@@ -60,7 +60,7 @@ class HelpRequestManager(models.Manager):
 
 class HelpRequest(models.Model):
     title = models.CharField(_('title'), max_length=50)
-    author = models.ForeignKey(settings.AUTH_USER_MODEL,
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='help_requests',
                                verbose_name=_('author'))
     datetime = models.DateTimeField(_('datetime'), default=timezone.now)
     meeting_datetime = models.DateTimeField(_('meeting datetime'))
@@ -91,3 +91,18 @@ class HelpRequest(models.Model):
         x = math.pow(user_longitude - self.longitude, 2)
         y = math.pow(user_latitude - self.latitude, 2)
         return math.sqrt(x + y)
+
+
+class HelpRequestReply(models.Model):
+    help_request = models.ForeignKey('HelpRequest', related_name='help_request_replies')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='help_request_replies')
+    datetime = models.DateTimeField(_('datetime'), default=timezone.now)
+    content = models.TextField(_('content'))
+
+    class Meta:
+        verbose_name = _('help request reply')
+        verbose_name_plural = _('help request replies')
+        ordering = ['datetime']
+
+    def __str__(self):
+        return "Reply to %s by %s" % (self.help_request, self.author)
