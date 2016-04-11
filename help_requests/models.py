@@ -8,7 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 
 
 DEFAULT_RADIUS_MILES = getattr(settings, 'HELPME_DEFAULT_RADIUS_MILES',
-                               float(1))
+                               float(5))
 EQUATORIAL_CIRCUMFERENCE = 24901
 POLAR_CIRCUMFERENCE = 24860
 ONE_MILE_LATITUDE_DEGREES = float(360) / float(EQUATORIAL_CIRCUMFERENCE)
