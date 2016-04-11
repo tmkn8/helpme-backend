@@ -6,14 +6,23 @@ from .models import HelpRequest, HelpRequestReply
 
 class HelpRequestReplySerializer(serializers.ModelSerializer):
     author_name = serializers.SerializerMethodField()
+    links = serializers.SerializerMethodField()
 
     class Meta:
         model = HelpRequestReply
         fields = '__all__'
-        read_only_fields = ('author', 'help_request', 'id')
+        read_only_fields = ('author', 'id', 'help_request')
 
     def get_author_name(self, obj):
-        return obj.help_request.author_name
+        return obj.author.username
+
+    def get_links(self, obj):
+        request = self.context['request']
+        return {
+            'self': reverse('helprequestreply-detail', kwargs={'pk': obj.pk},
+                            request=request),
+            'author': None,
+        }
 
 
 class HelpRequestSerializer(serializers.ModelSerializer):
