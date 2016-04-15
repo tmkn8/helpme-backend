@@ -8,7 +8,7 @@ from .serializers import HelpRequestSerializer, HelpRequestReplySerializer
 
 
 class HelpRequestViewSet(DefaultsMixin, viewsets.ModelViewSet):
-    queryset = HelpRequest.objects.all().not_closed().only_future_meetings()
+    queryset = HelpRequest.objects.all()
     serializer_class = HelpRequestSerializer
 
     def list(self, request):
