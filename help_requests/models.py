@@ -46,6 +46,12 @@ class HelpRequestQuerySet(models.query.QuerySet):
         """
         return self.filter(is_closed=False)
 
+    def only_future_meetings(self):
+        """
+        Returns only help requests which meeting time is in the future
+        """
+        return self.filter(meeting_datetime__gt=timezone.now())
+
 
 class HelpRequestManager(models.Manager):
     def get_queryset(self):
@@ -56,6 +62,9 @@ class HelpRequestManager(models.Manager):
 
     def not_closed(self):
         return self.get_queryset().not_closed()
+
+    def only_future_meetings(self):
+        return self.get_queryset().only_future_meetings()
 
 
 class HelpRequest(models.Model):
@@ -74,6 +83,7 @@ class HelpRequest(models.Model):
     class Meta:
         verbose_name = _('help request')
         verbose_name_plural = _('help requests')
+        ordering = ['meeting_datetime']
 
     def __str__(self):
         return self.title
