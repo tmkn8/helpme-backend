@@ -25,7 +25,7 @@ class HelpRequestViewSet(DefaultsMixin, viewsets.ModelViewSet):
             else:
                 queryset = queryset.location(user_latitude, user_longitude)
 
-        serializer = self.serializer_class(queryset, many=True)
+        serializer = self.serializer_class(queryset, many=True, context={'request': request})
         return Response(serializer.data)
 
 
